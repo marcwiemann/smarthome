@@ -1,31 +1,22 @@
-import React, {Component} from "react";
-import './css/App.css';
-import Navbar from "./components/navbar";
-import Box from "./components/box";
 
-class App extends Component {
-  constructor(props){
-    super(props);
-    this.state = {jsonResponse : {}};
-  }
+import React,  {useState}  from "react";
+import { BrowserRouter as Router} from "react-router-dom";
+import { Header } from "./components/header";
+import {Sidebar} from "./components/sidebar";
+import {MainPage} from "./components/main";
 
-  render(){
-    return (
-      <div className="App">
-        <Navbar/>
-        
-        <header className="appheader">
-          <h1>
-            Willkommen zurück, Marc!
-          </h1>
-        </header>
-        <div className="wrapper">
-          <Box title="LED Strip"></Box>
-        </div>
-      </div>
-    );
-  }
-  
+export default function App() {
+  const [activeBurger, setActiveBurger] = useState(true);
+  const showResponsiveNavigation = activeBurger === false? "resposiveDisplay" : "";
+  return (
+    <div className="bodyHome">
+      <Router>
+        <Header activeBurger={activeBurger}  onClick={() => {
+            setActiveBurger(!activeBurger);
+         }}/>
+        <Sidebar showResponsiveNavigation={showResponsiveNavigation}/>
+        <MainPage />
+      </Router>
+    </div>
+  );
 }
-
-export default App;
